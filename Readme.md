@@ -134,6 +134,7 @@ python imagesets.py --dataset-path E:\datasets\(2017)SSDD\SSDD_init --percent 7 
    ```
    # --label-path：标签文件所在目录
    # --img-path：图像所在目录
+   # --from-img：以图像所在目录的文件名作为画框队形，默认是标签目录
    ```
    
 2. txt说明文件指明需要画哪些标注
