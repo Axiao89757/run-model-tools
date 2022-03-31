@@ -41,7 +41,7 @@ def get_bbox(label_path):
     return object_bbox
 
 
-def drow_object(img_file, bndboxes, save_path, label_type):
+def drow_object(img_file, bndboxes, save_path, label_type, color, thick):
     img = cv2.imread(img_file)
     filename = os.path.split(img_file)[-1]
     for i in range(len(bndboxes)):
@@ -50,7 +50,7 @@ def drow_object(img_file, bndboxes, save_path, label_type):
         xmax = bndboxes[i][2]
         ymax = bndboxes[i][3]
         if label_type == '.xml':
-            cv2.rectangle(img, (xmin, ymax), (xmax, ymin), (0, 0, 255), 2)
+            cv2.rectangle(img, (xmin, ymax), (xmax, ymin), color, thick)
         elif label_type == '.txt':
             # 获取图片长宽
             w = img.shape[0]
@@ -74,13 +74,19 @@ if __name__ == '__main__':
     parser.add_argument('--img-path', required=True, help="对应的图像所在目录")
     parser.add_argument('--from-img', action='store_true', help="以图像所在目录的文件名作为画框队形，默认是标签目录")
     parser.add_argument('--save-path', required=True, help="生成的图像保存位置")
+    parser.add_argument('--clear-dir', action='store_true', default=True, help="清空保存目录的原本内容")
     parser.add_argument('--choose-txt', default=False, help="指定画图的文件名的txt文件，不包后缀，每个文件名占单独一行")
+    parser.add_argument('--color', nargs='+', type=int, default=(0, 0, 255), help="框的颜色")
+    parser.add_argument('--thick', type=int, default=1, help="框的厚度")
     args = parser.parse_args()
     label_path = args.label_path
     img_path = args.img_path
     from_img = args.from_img
     save_path = args.save_path
     choose_txt = args.choose_txt
+    color = args.color
+    clear_dir = args.clear_dir
+    thick = args.thick
 
     filenames = []
     # 待画图文件名收集，不包后缀
@@ -93,12 +99,19 @@ if __name__ == '__main__':
             filenames.append(os.path.splitext(file)[0])
         print('from dir file list: ', len(filenames))
 
+    if os.path.exists(save_path):
+        files = os.listdir(save_path)
+        if clear_dir and len(files) > 0:
+            for fn in files:
+                os.remove(os.path.join(save_path, fn))
+    else:
+        os.makedirs(save_path)
     # 画图
     for fn in filenames:
         label_type = os.path.splitext(os.listdir(label_path)[0])[-1]
         bndboxes = get_bbox(label_path=os.path.join(label_path, fn + label_type))
         drow_object(img_file=os.path.join(img_path, fn + os.path.splitext(os.listdir(img_path)[0])[-1]),
-                    bndboxes=bndboxes, save_path=save_path, label_type=label_type)
+                    bndboxes=bndboxes, save_path=save_path, label_type=label_type, color=color, thick=thick)
 
     print('save to' + save_path)
     print('end')

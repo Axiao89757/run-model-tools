@@ -131,12 +131,15 @@ python imagesets.py --dataset-path E:\SSDD_init --percent 7 2 1
 但此时图像只是原始的图像，并没有画出标注框，即可使用此工具画出来。**注意：.txt标注文件暂不支持**
 1. 直接画出给出的文件目录下的全部标注，默认是标签目录
     ```bash
-   python label2img.py --label-path E:\xml-label --img-path E:\JPEGImages --save-path E:\save
+   python label2img.py --label-path E:\xml-label --img-path E:\JPEGImages --save-path E:\save --color 0 0 256 --thick 2
    ```
    ```
    # --label-path：标签文件所在目录
    # --img-path：图像所在目录
    # --from-img：以图像所在目录的文件名作为画框标准，默认是标签目录
+   # --color：框的颜色（R，G，B）
+   # --clear-dir：清空保存目录的原本内容
+   # --thick：框的厚度
    ```
    
 2. txt说明文件指明需要画哪些标注
@@ -165,7 +168,7 @@ python imagesets.py --dataset-path E:\SSDD_init --percent 7 2 1
 ```
 命令
 ```bash
-python chooseimg.py --txt-path E:\test.txt --img-dir E:\JPEGImages --save-dir E:\test-move
+python choosefile.py --txt-path E:\test.txt --img-dir E:\JPEGImages --save-dir E:\test-move
 ```
 ```
 # --txt-path：描述txt文件的路径
