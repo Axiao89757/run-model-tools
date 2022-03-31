@@ -89,7 +89,7 @@ if __name__ == '__main__':
             filenames = f.read().split('\n')
         print('from description .txt file: ', len(filenames))
     else:  # 从路径直接读取标签名
-        for file in os.listdir(label_path if from_img else img_path):
+        for file in os.listdir(img_path if from_img else label_path):
             filenames.append(os.path.splitext(file)[0])
         print('from dir file list: ', len(filenames))
 

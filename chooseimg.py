@@ -1,4 +1,4 @@
-# 从txt描述文件里选择对应img文件复制到指定路径
+# 从txt描述文件里选择对应的文件复制到指定路径
 
 import os
 import argparse
@@ -8,7 +8,7 @@ if __name__ == '__main__':
     print('start')
     parser = argparse.ArgumentParser()
     parser.add_argument('--txt-path', required=True, help='描述txt文件的路径')
-    parser.add_argument('--img-dir', required=True, help='图片所在目录')
+    parser.add_argument('--img-dir', required=True, help='欲复制的文件所在目录')
     parser.add_argument('--save-dir', required=True, help='保存文件目录')
     parser.add_argument('--clear-dir', action='store_true', default=True, help='在保存文件之前，清空原有的文件')
     args = parser.parse_args()

@@ -129,14 +129,14 @@ python imagesets.py --dataset-path E:\SSDD_init --percent 7 2 1
 # 5. 为图像画框
 在拥有.xml标注文件和图像文件的情况下，
 但此时图像只是原始的图像，并没有画出标注框，即可使用此工具画出来。**注意：.txt标注文件暂不支持**
-1. 直接画出给出的标签文件路径下的全部标注
+1. 直接画出给出的文件目录下的全部标注，默认是标签目录
     ```bash
    python label2img.py --label-path E:\xml-label --img-path E:\JPEGImages --save-path E:\save
    ```
    ```
    # --label-path：标签文件所在目录
    # --img-path：图像所在目录
-   # --from-img：以图像所在目录的文件名作为画框队形，默认是标签目录
+   # --from-img：以图像所在目录的文件名作为画框标准，默认是标签目录
    ```
    
 2. txt说明文件指明需要画哪些标注
